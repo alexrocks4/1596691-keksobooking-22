@@ -35,6 +35,17 @@ const OFFER_PHOTOS = [
   'http://o0.github.io/assets/images/tokyo/hotel2.jpg',
   'http://o0.github.io/assets/images/tokyo/hotel3.jpg',
 ];
+const TOKYO_LATITUDE_START = 35.65;
+const TOKYO_LATITUDE_END = 35.7;
+const TOKYO_LONGITUDE_START = 139.7;
+const TOKYO_LONGITUDE_END = 139.8;
+const COORDINATES_PRECISION = 5;
+const MIN_OFFER_PRICE = 1;
+const MIN_OFFER_ROOMS = 1;
+const MIN_OFFER_GUESTS = 1;
+const MAX_OFFER_PRICE = 1000000000;
+const MAX_OFFER_ROOMS = 1000;
+const MAX_OFFER_GUESTS = 1000000000;
 
 const checkMinMaxArguments = (min, max) => {
   if (min > max || min < 0) {
@@ -86,19 +97,19 @@ const getAd = () => {
     },
     offer: {
       title: getRandomArrayElement(OFFER_TITLES),
-      price: getRandomIntegerInclusive(1, 1000000000),
+      price: getRandomIntegerInclusive(MIN_OFFER_PRICE, MAX_OFFER_PRICE),
       type: getRandomArrayElement(OFFER_TYPES),
-      rooms: getRandomIntegerInclusive(1, 1000),
-      guests: getRandomIntegerInclusive(1, 1000000000),
+      rooms: getRandomIntegerInclusive(MIN_OFFER_ROOMS, MAX_OFFER_ROOMS),
+      guests: getRandomIntegerInclusive(MIN_OFFER_GUESTS, MAX_OFFER_GUESTS),
       checkin: getRandomArrayElement(TIME_POINTS),
       checkout: getRandomArrayElement(TIME_POINTS),
-      features: getRandomlySlicedArray(OFFER_FEATURES),
+      features: getRandomlySlicedArray(OFFER_FEATURES).join(', '),
       description: getRandomArrayElement(OFFER_DESCRIPTION),
-      photos: getRandomlySlicedArray(OFFER_PHOTOS),
+      photos: getRandomlySlicedArray(OFFER_PHOTOS).join(', '),
     },
     location: {
-      x: getRandomFloatInclusive(35.65000, 35.70000, 5),
-      y: getRandomFloatInclusive(139.70000, 139.80000, 5),
+      x: getRandomFloatInclusive(TOKYO_LATITUDE_START, TOKYO_LATITUDE_END, COORDINATES_PRECISION),
+      y: getRandomFloatInclusive(TOKYO_LONGITUDE_START, TOKYO_LONGITUDE_END, COORDINATES_PRECISION),
     },
   }
 
