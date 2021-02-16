@@ -46,4 +46,15 @@ const getArray = (length = 0, cb) => {
   return Array.from({ length: length }, cb);
 }
 
-export { getRandomIntegerInclusive, getRandomFloatInclusive, getRandomArrayElement, getRandomlySlicedArray, getArray };
+const capitalize = (text) => {
+  return text.charAt(0).toUpperCase() + text.slice(1);
+};
+
+export {
+  getRandomIntegerInclusive,
+  getRandomFloatInclusive,
+  getRandomArrayElement,
+  getRandomlySlicedArray,
+  getArray,
+  capitalize
+};
