@@ -1,4 +1,5 @@
 import { getTestAds } from './test-data.js';
+import { AdTypeTranslation, createAdCapacityContent } from './util.js';
 
 const TEST_ADS_COUNT = 10;
 const testAdsData = getTestAds(TEST_ADS_COUNT);
@@ -6,13 +7,6 @@ const testAdsData = getTestAds(TEST_ADS_COUNT);
 const cardTemplate = document.querySelector('#card')
   .content
   .querySelector('.popup');
-
-const AdTypeTranslation = {
-  flat: 'Квартира',
-  bungalow: 'Бунгало',
-  house: 'Дом',
-  palace: 'Дворец',
-};
 
 const processBlock = (isInputDataPresent, block, getBlockContent) => {
 
@@ -22,27 +16,6 @@ const processBlock = (isInputDataPresent, block, getBlockContent) => {
     block.style.display = 'none';
   }
 }
-
-const createAdCapacityContent = (rooms, guests) => {
-  let roomsText = '';
-  let guestsText = '';
-
-  if (rooms) {
-    if (rooms === 1) {
-      roomsText = '1 комната';
-    } else if (rooms > 1 && rooms < 5) {
-      roomsText = `${rooms} комнаты`;
-    } else {
-      roomsText = `${rooms} комнат`;
-    }
-  }
-
-  if (guests) {
-    guestsText = guests === 1 ? `для ${guests} гостя` : `для ${guests} гостей`;
-  }
-
-  return `${roomsText} ${guestsText}`;
-};
 
 const createAdTimeContent = (checkin, checkout) => {
   let checkinText = checkin ? `Заезд после ${checkin}` : '';

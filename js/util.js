@@ -46,8 +46,32 @@ const getArray = (length = 0, cb) => {
   return Array.from({ length: length }, cb);
 }
 
-const capitalize = (text) => {
-  return text.charAt(0).toUpperCase() + text.slice(1);
+const AdTypeTranslation = {
+  flat: 'Квартира',
+  bungalow: 'Бунгало',
+  house: 'Дом',
+  palace: 'Дворец',
+};
+
+const createAdCapacityContent = (rooms, guests) => {
+  let roomsText = '';
+  let guestsText = '';
+
+  if (rooms) {
+    if (rooms === 1) {
+      roomsText = '1 комната';
+    } else if (rooms > 1 && rooms < 5) {
+      roomsText = `${rooms} комнаты`;
+    } else {
+      roomsText = `${rooms} комнат`;
+    }
+  }
+
+  if (guests) {
+    guestsText = guests === 1 ? `для ${guests} гостя` : `для ${guests} гостей`;
+  }
+
+  return `${roomsText} ${guestsText}`;
 };
 
 export {
@@ -56,5 +80,6 @@ export {
   getRandomArrayElement,
   getRandomlySlicedArray,
   getArray,
-  capitalize
+  AdTypeTranslation,
+  createAdCapacityContent
 };
