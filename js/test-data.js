@@ -3,7 +3,7 @@ import { getRandomIntegerInclusive, getRandomFloatInclusive, getRandomArrayEleme
 const OFFER_TITLES = [
   'Лучшие аппартаменты в Токио',
   'Уютное местечко в центре Токио',
-  'Супер - пупер жильё!',
+  '',
 ];
 const OFFER_TYPES = [
   'palace',
@@ -42,9 +42,9 @@ const COORDINATES_PRECISION = 5;
 const MIN_OFFER_PRICE = 1;
 const MIN_OFFER_ROOMS = 1;
 const MIN_OFFER_GUESTS = 1;
-const MAX_OFFER_PRICE = 1000000000;
-const MAX_OFFER_ROOMS = 1000;
-const MAX_OFFER_GUESTS = 1000000000;
+const MAX_OFFER_PRICE = 100000;
+const MAX_OFFER_ROOMS = 10;
+const MAX_OFFER_GUESTS = 10;
 
 
 const getRandomAvatar = () => {
@@ -66,9 +66,9 @@ const getAd = () => {
       guests: getRandomIntegerInclusive(MIN_OFFER_GUESTS, MAX_OFFER_GUESTS),
       checkin: getRandomArrayElement(TIME_POINTS),
       checkout: getRandomArrayElement(TIME_POINTS),
-      features: getRandomlySlicedArray(OFFER_FEATURES).join(', '),
+      features: getRandomlySlicedArray(OFFER_FEATURES),
       description: getRandomArrayElement(OFFER_DESCRIPTION),
-      photos: getRandomlySlicedArray(OFFER_PHOTOS).join(', '),
+      photos: getRandomlySlicedArray(OFFER_PHOTOS),
     },
     location: {
       x: getRandomFloatInclusive(TOKYO_LATITUDE_START, TOKYO_LATITUDE_END, COORDINATES_PRECISION),
