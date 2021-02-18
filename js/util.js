@@ -1,3 +1,8 @@
+const TOKIYO_GEO_POSITON = {
+  latitude: 35.652832,
+  longitude: 139.839478,
+}
+
 const adTypeToMinPrice = {
   bungalow: 0,
   flat: 1000,
@@ -81,6 +86,25 @@ const createAdCapacityContent = (rooms, guests) => {
   return `${roomsText} ${guestsText}`;
 };
 
+const changeFormState = ({
+  formElement,
+  deactivationClassName,
+  interactiveElementsSelector,
+  isActivation,
+}) => {
+  const interactiveElements = formElement.querySelectorAll(interactiveElementsSelector);
+
+  if (isActivation) {
+    formElement.classList.remove(deactivationClassName);
+  } else {
+    formElement.classList.add(deactivationClassName);
+  }
+
+  for (const element of interactiveElements) {
+    element.disabled = !isActivation;
+  }
+};
+
 export {
   AdTypeTranslation,
   adTypeToMinPrice,
@@ -89,5 +113,7 @@ export {
   getRandomArrayElement,
   getRandomlySlicedArray,
   getArray,
-  createAdCapacityContent
+  createAdCapacityContent,
+  changeFormState,
+  TOKIYO_GEO_POSITON
 };
