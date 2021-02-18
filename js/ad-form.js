@@ -1,9 +1,4 @@
-const adTypeToMinPrice = {
-  bungalow: 0,
-  flat: 1000,
-  house: 5000,
-  palace: 10000,
-};
+import { adTypeToMinPrice } from './util.js';
 
 const adForm = document.querySelector('.ad-form');
 const adType = adForm.querySelector('#type');
