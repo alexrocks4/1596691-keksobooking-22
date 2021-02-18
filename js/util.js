@@ -1,3 +1,17 @@
+const adTypeToMinPrice = {
+  bungalow: 0,
+  flat: 1000,
+  house: 5000,
+  palace: 10000,
+};
+
+const AdTypeTranslation = {
+  flat: 'Квартира',
+  bungalow: 'Бунгало',
+  house: 'Дом',
+  palace: 'Дворец',
+};
+
 const checkMinMaxArguments = (min, max) => {
   if (min > max || min < 0) {
     throw 'Wrong function arguments. Minimum value must be 0 or positive and lower or equal to maximum';
@@ -46,13 +60,6 @@ const getArray = (length = 0, cb) => {
   return Array.from({ length: length }, cb);
 }
 
-const AdTypeTranslation = {
-  flat: 'Квартира',
-  bungalow: 'Бунгало',
-  house: 'Дом',
-  palace: 'Дворец',
-};
-
 const createAdCapacityContent = (rooms, guests) => {
   let roomsText = '';
   let guestsText = '';
@@ -75,11 +82,12 @@ const createAdCapacityContent = (rooms, guests) => {
 };
 
 export {
+  AdTypeTranslation,
+  adTypeToMinPrice,
   getRandomIntegerInclusive,
   getRandomFloatInclusive,
   getRandomArrayElement,
   getRandomlySlicedArray,
   getArray,
-  AdTypeTranslation,
   createAdCapacityContent
 };
