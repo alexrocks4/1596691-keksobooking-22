@@ -57,8 +57,8 @@ const deactivateAdForm = () => {
   })
 };
 
-const deactivateAdAddress= () => {
-  adAddress.closest('fieldset').disabled = true;
+const setReadonlyAdAddress = () => {
+  adAddress.readOnly = true;
 };
 
 const setAdAddress = (lat, lng) => {
@@ -82,32 +82,49 @@ adTitle.addEventListener('input', () => {
 });
 
 adPrice.addEventListener('input', () => {
-
-  if (adPrice.validity.rangeOverflow) {
-    adPrice.setCustomValidity(`Максимальная цена не может быть больше ${MAX_AD_PRICE}!`);
-  } else {
+  adPrice.validity.rangeOverflow ?
+    adPrice.setCustomValidity(`Максимальная цена не может быть больше ${MAX_AD_PRICE}!`) :
     adPrice.setCustomValidity('');
-  }
-
   adPrice.reportValidity();
 });
+
+const setValidAdCapacityValue = () => {
+  const items = Array.from(adCapacity.children);
+  const selectedItem = adCapacity.querySelector('[selected]');
+
+  if (selectedItem.disabled) {
+    const firstEnabledItem = items.find((item) => !item.disabled );
+    adCapacity.value = firstEnabledItem.value;
+  }
+};
+
+const validateAdCapacityValue = () => {
+  const selectedItem = adCapacity.querySelector(`[value="${adCapacity.value}"]`);
+
+  selectedItem.disabled ?
+    adCapacity.setCustomValidity('Выбранное значение не подходит. \
+    Выберите другое доступное значение из списка!') :
+    adCapacity.setCustomValidity('');
+  adCapacity.reportValidity();
+};
 
 const updateAdCapacityItems = (roomsNumber) => {
 
   for (const capacityItem of adCapacity.children) {
-
-    if (roomsNumber >= MAX_ROOMS_NUMBER) {
-      capacityItem.disabled = capacityItem.value !== '0' ? true : false;
-    } else {
-      capacityItem.disabled = (capacityItem.value > roomsNumber) || (capacityItem.value === '0') ? true : false;
-    }
+    capacityItem.disabled = roomsNumber >= MAX_ROOMS_NUMBER ?
+      capacityItem.value !== '0' :
+      (capacityItem.value > roomsNumber) || (capacityItem.value === '0');
   }
-}
+};
 
 adRoomsNumber.addEventListener('change', (evt) => {
   updateAdCapacityItems(evt.target.value);
+  validateAdCapacityValue();
 })
 
+adCapacity.addEventListener('change', () => {
+  validateAdCapacityValue();
+})
 
 onAdTypeChange();
 onAdTimeinChange();
@@ -115,6 +132,7 @@ onAdTimeoutChange();
 deactivateAdForm();
 setAdAddress(TOKIYO_GEO_POSITON.latitude, TOKIYO_GEO_POSITON.longitude);
 updateAdCapacityItems(adRoomsNumber.value);
+setValidAdCapacityValue();
 adType.addEventListener('change', onAdTypeChange);
 adTimein.addEventListener('change', onAdTimeinChange);
 adTimeout.addEventListener('change', onAdTimeoutChange);
@@ -122,5 +140,5 @@ adTimeout.addEventListener('change', onAdTimeoutChange);
 export {
   activateAdForm,
   setAdAddress,
-  deactivateAdAddress
+  setReadonlyAdAddress
 };

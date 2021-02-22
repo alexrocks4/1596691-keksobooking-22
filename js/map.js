@@ -1,5 +1,5 @@
 import { TOKIYO_GEO_POSITON } from './util.js';
-import { activateAdForm, setAdAddress, deactivateAdAddress } from './ad-form.js';
+import { activateAdForm, setAdAddress, setReadonlyAdAddress } from './ad-form.js';
 import { activateMapFiltersForm } from './map-filters-form.js';
 import { createSimilarAdCards } from './similar-ad-cards.js';
 
@@ -7,7 +7,7 @@ const L = window.L;
 const map = L.map('map-canvas')
   .on('load', () => {
     activateAdForm();
-    deactivateAdAddress();
+    setReadonlyAdAddress();
     activateMapFiltersForm();
   })
   .setView(
