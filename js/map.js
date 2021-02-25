@@ -1,7 +1,6 @@
 import { TOKIYO_GEO_POSITON } from './util.js';
 import { activateAdForm, setAdAddress, setReadonlyAdAddress } from './ad-form.js';
 import { activateMapFiltersForm } from './map-filters-form.js';
-import { createSimilarAdCards } from './similar-ad-cards.js';
 
 const L = window.L;
 const map = L.map('map-canvas')
@@ -48,17 +47,21 @@ mainMarker.on('drag', (evt) => {
   setAdAddress(evt.latlng.lat, evt.latlng.lng);
 })
 
-const adCards = createSimilarAdCards();
-adCards.forEach(({ ad, location }) => {
-  L.marker(
-    {
-      lat: location.x,
-      lng: location.y,
-    },
-    {
-      icon: pinIcon,
-    },
-  )
-    .addTo(map)
-    .bindPopup(ad);
-})
+const addCardsToMap = (adCards) => {
+
+  adCards.forEach(({ ad, location }) => {
+    L.marker(
+      {
+        lat: location.lat,
+        lng: location.lng,
+      },
+      {
+        icon: pinIcon,
+      },
+    )
+      .addTo(map)
+      .bindPopup(ad);
+  })
+};
+
+export { addCardsToMap };

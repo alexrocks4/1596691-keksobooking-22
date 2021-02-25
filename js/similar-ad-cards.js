@@ -1,8 +1,4 @@
-import { getTestAds } from './test-data.js';
 import { AdTypeTranslation, createAdCapacityContent } from './util.js';
-
-const TEST_ADS_COUNT = 10;
-const testAdsData = getTestAds(TEST_ADS_COUNT);
 
 const cardTemplate = document.querySelector('#card')
   .content
@@ -46,8 +42,8 @@ const createAdPhotosContent = (urls) => {
   return photos.join('\n');
 }
 
-const createSimilarAdCards = () => {
-  const ads = testAdsData.map(({author, offer, location}) => {
+const createSimilarAdCards = (adsData) => {
+  const ads = adsData.map(({author, offer, location}) => {
     const ad = cardTemplate.cloneNode(true);
     const adTitle = ad.querySelector('.popup__title');
     const adAddress = ad.querySelector('.popup__text--address');
