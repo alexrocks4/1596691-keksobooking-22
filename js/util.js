@@ -1,3 +1,5 @@
+const ESC_KEY_CODE = 27;
+
 const TOKIYO_GEO_POSITON = {
   latitude: 35.652832,
   longitude: 139.839478,
@@ -105,6 +107,10 @@ const changeFormState = ({
   }
 };
 
+const isEscapeKey = (keyCode) => {
+  return keyCode === ESC_KEY_CODE;
+};
+
 export {
   AdTypeTranslation,
   adTypeToMinPrice,
@@ -115,5 +121,6 @@ export {
   getArray,
   createAdCapacityContent,
   changeFormState,
-  TOKIYO_GEO_POSITON
+  TOKIYO_GEO_POSITON,
+  isEscapeKey
 };

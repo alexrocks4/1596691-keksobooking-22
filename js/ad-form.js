@@ -3,6 +3,7 @@ import {
   changeFormState,
   TOKIYO_GEO_POSITON
 } from './util.js';
+import { postFormData } from './api.js';
 
 const DEACTIVATION_CLASSNAME = 'ad-form--disabled';
 const INTERACTIVE_ELEMENTS_SELECTOR = 'fieldset';
@@ -11,6 +12,7 @@ const MIN_AD_TITLE_LENGTH = 30;
 const MAX_AD_TITLE_LENGTH = 100;
 const MAX_AD_PRICE = 1000000;
 const MAX_ROOMS_NUMBER = 100;
+const AD_FORM_SUBMIT_URL = 'https://22.javascript.pages.academy/keksobooking';
 
 const adForm = document.querySelector('.ad-form');
 const adType = adForm.querySelector('#type');
@@ -21,6 +23,7 @@ const adAddress = adForm.querySelector('#address');
 const adTitle = adForm.querySelector('#title');
 const adRoomsNumber = adForm.querySelector('#room_number');
 const adCapacity = adForm.querySelector('#capacity');
+const resetButton = adForm.querySelector('.ad-form__reset');
 
 const onAdTypeChange = () => {
   const minPrice = adTypeToMinPrice[adType.value];
@@ -126,6 +129,33 @@ adCapacity.addEventListener('change', () => {
   validateAdCapacityValue();
 })
 
+const resetAdForm = () => {
+  adForm.reset();
+  onAdTypeChange();
+  setAdAddress(TOKIYO_GEO_POSITON.latitude, TOKIYO_GEO_POSITON.longitude);
+  updateAdCapacityItems(adRoomsNumber.value);
+  setValidAdCapacityValue();
+};
+
+const setAdFormSubmitListener = (onSuccess, onFailure) => {
+  adForm.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    postFormData({
+      onSuccess,
+      onFailure,
+      url: AD_FORM_SUBMIT_URL,
+      body: new FormData(adForm),
+    });
+  });
+};
+
+const setAdFormResetButtonListener = (cb) => {
+  resetButton.addEventListener('click', (evt) => {
+    evt.preventDefault();
+    cb();
+  });
+};
+
 onAdTypeChange();
 onAdTimeinChange();
 onAdTimeoutChange();
@@ -140,5 +170,8 @@ adTimeout.addEventListener('change', onAdTimeoutChange);
 export {
   activateAdForm,
   setAdAddress,
-  setReadonlyAdAddress
+  setReadonlyAdAddress,
+  resetAdForm,
+  setAdFormSubmitListener,
+  setAdFormResetButtonListener
 };
