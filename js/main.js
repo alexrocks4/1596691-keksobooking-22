@@ -35,12 +35,12 @@ const onSuccessfullAdFormSubmit = () => {
 initializeMap(() => {
   activateAdForm();
   setReadonlyAdAddress();
-  activateMapFiltersForm();
-});
-getData({
-  onSuccess: (adsData) => addCardsToMap(createSimilarAdCards(adsData.slice(0, MAX_ADS_COUNT))),
-  onFailure: showAlert,
-  url: ADS_DATA_URL,
+  getData({
+    onSuccess: (adsData) => addCardsToMap(createSimilarAdCards(adsData.slice(0, MAX_ADS_COUNT))),
+    onFailure: showAlert,
+    url: ADS_DATA_URL,
+  })
+    .then(() => activateMapFiltersForm());
 });
 setAdFormSubmitListener(onSuccessfullAdFormSubmit, showErrorPopup);
 setAdFormResetButtonListener(() => {
