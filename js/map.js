@@ -1,6 +1,7 @@
 import { TOKIYO_GEO_POSITON } from './util.js';
 
 let map = null;
+let markers = [];
 const L = window.L;
 const mainPinIcon = L.icon({
   iconUrl: 'img/main-pin.svg',
@@ -52,9 +53,10 @@ const resetMap = () => {
 };
 
 const addCardsToMap = (adCards) => {
+  markers = [];
 
   adCards.forEach(({ ad, location }) => {
-    L.marker(
+    const marker = L.marker(
       {
         lat: location.lat,
         lng: location.lng,
@@ -62,15 +64,22 @@ const addCardsToMap = (adCards) => {
       {
         icon: pinIcon,
       },
-    )
-      .addTo(map)
-      .bindPopup(ad);
-  })
+    );
+
+    marker.addTo(map).bindPopup(ad);
+    markers.push(marker);
+  });
+};
+
+const removeMarkersFromMap = () => {
+  markers.forEach((marker) => marker.remove())
+  markers = [];
 };
 
 export {
   addCardsToMap,
   resetMap,
   setMainMarkerDragAction,
-  initializeMap
+  initializeMap,
+  removeMarkersFromMap
 };
