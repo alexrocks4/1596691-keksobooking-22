@@ -11,15 +11,19 @@ import {
   addCardsToMap,
   resetMap,
   setMainMarkerDragAction,
-  initializeMap
+  initializeMap,
+  removeMarkersFromMap
 } from './map.js';
-import { activateMapFiltersForm } from './map-filters-form.js';
+import {
+  activateMapFiltersForm,
+  processAdsData,
+  setMapFiltersFormChange
+} from './map-filters-form.js';
 import { getData } from './api.js';
 import { showAlert } from './alert.js';
 import { showErrorPopup } from './error-popup.js';
 import { showSuccessPopup } from './success-popup.js';
 
-const MAX_ADS_COUNT = 10;
 const ADS_DATA_URL = 'https://22.javascript.pages.academy/keksobooking/data';
 
 const resetPage = () => {
@@ -32,15 +36,25 @@ const onSuccessfullAdFormSubmit = () => {
   resetPage();
 };
 
+const renderCards = (adsData) => {
+  addCardsToMap(createSimilarAdCards(processAdsData(adsData)));
+};
+
 initializeMap(() => {
   activateAdForm();
   setReadonlyAdAddress();
-  activateMapFiltersForm();
-});
-getData({
-  onSuccess: (adsData) => addCardsToMap(createSimilarAdCards(adsData.slice(0, MAX_ADS_COUNT))),
-  onFailure: showAlert,
-  url: ADS_DATA_URL,
+  getData({
+    onSuccess: (adsData) => {
+      renderCards(adsData);
+      setMapFiltersFormChange(() => {
+        removeMarkersFromMap();
+        renderCards(adsData);
+      })
+    },
+    onFailure: showAlert,
+    url: ADS_DATA_URL,
+  })
+    .then(() => activateMapFiltersForm());
 });
 setAdFormSubmitListener(onSuccessfullAdFormSubmit, showErrorPopup);
 setAdFormResetButtonListener(() => {
