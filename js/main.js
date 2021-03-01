@@ -24,7 +24,9 @@ import { showAlert } from './alert.js';
 import { showErrorPopup } from './error-popup.js';
 import { showSuccessPopup } from './success-popup.js';
 
+const _ = window._;
 const ADS_DATA_URL = 'https://22.javascript.pages.academy/keksobooking/data';
+const RERENDER_DELAY = 500;
 
 const resetPage = () => {
   resetAdForm();
@@ -46,10 +48,10 @@ initializeMap(() => {
   getData({
     onSuccess: (adsData) => {
       renderCards(adsData);
-      setMapFiltersFormChange(() => {
+      setMapFiltersFormChange(_.debounce(() => {
         removeMarkersFromMap();
         renderCards(adsData);
-      })
+      }, RERENDER_DELAY));
     },
     onFailure: showAlert,
     url: ADS_DATA_URL,
