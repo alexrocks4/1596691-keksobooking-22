@@ -4,6 +4,8 @@ import {
   TOKIYO_GEO_POSITON
 } from './util.js';
 import { postFormData } from './api.js';
+import { resetAvatar } from './avatar.js';
+import { resetHousingPhoto } from './housingPhoto.js';
 
 const DEACTIVATION_CLASSNAME = 'ad-form--disabled';
 const INTERACTIVE_ELEMENTS_SELECTOR = 'fieldset';
@@ -135,6 +137,8 @@ const resetAdForm = () => {
   setAdAddress(TOKIYO_GEO_POSITON.latitude, TOKIYO_GEO_POSITON.longitude);
   updateAdCapacityItems(adRoomsNumber.value);
   setValidAdCapacityValue();
+  resetAvatar();
+  resetHousingPhoto();
 };
 
 const setAdFormSubmitListener = (onSuccess, onFailure) => {
