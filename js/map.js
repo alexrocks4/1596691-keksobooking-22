@@ -1,5 +1,6 @@
 import { TOKIYO_GEO_POSITON } from './util.js';
 
+const ZOOM_LEVEL = 9;
 let map = null;
 let markers = [];
 const L = window.L;
@@ -29,7 +30,7 @@ const initializeMap = (cb) => {
     .on('load', () => cb())
     .setView(
       [TOKIYO_GEO_POSITON.latitude, TOKIYO_GEO_POSITON.longitude],
-      12);
+      ZOOM_LEVEL);
 
   L.tileLayer(
     'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
