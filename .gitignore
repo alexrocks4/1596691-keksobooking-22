@@ -6,7 +6,8 @@
 *.psd
 *.sublime*
 *.code-workspace
-build/
+build/js/
+build/vendors/
 node_modules/
 npm-debug.log*
 Thumbs.db

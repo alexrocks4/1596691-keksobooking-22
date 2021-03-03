@@ -1,3 +1,4 @@
+import debounce from 'lodash/debounce';
 import { createSimilarAdCards } from './similar-ad-cards.js';
 import {
   resetAdForm,
@@ -24,7 +25,6 @@ import { showAlert } from './alert.js';
 import { showErrorPopup } from './error-popup.js';
 import { showSuccessPopup } from './success-popup.js';
 
-const _ = window._;
 const ADS_DATA_URL = 'https://22.javascript.pages.academy/keksobooking/data';
 const RERENDER_DELAY = 500;
 
@@ -48,7 +48,7 @@ initializeMap(() => {
   getData({
     onSuccess: (adsData) => {
       renderCards(adsData);
-      setMapFiltersFormChange(_.debounce(() => {
+      setMapFiltersFormChange(debounce(() => {
         removeMarkersFromMap();
         renderCards(adsData);
       }, RERENDER_DELAY));
