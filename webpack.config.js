@@ -18,7 +18,7 @@ module.exports = {
       {
         test: /\.(png|jpe?g|gif|svg|eot|ttf|woff|woff2)$/i,
         issuer: /leaflet\.css$/i,
-        type: 'asset/resource',
+        type: 'asset',
         generator: {
           filename: 'vendors/leaflet/images/[hash][ext]'
         }
