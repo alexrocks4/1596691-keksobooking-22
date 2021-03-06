@@ -1,3 +1,4 @@
+import debounce from 'lodash/debounce';
 import { createSimilarAdCards } from './similar-ad-cards.js';
 import {
   resetAdForm,
@@ -17,29 +18,38 @@ import {
 import {
   activateMapFiltersForm,
   processAdsData,
-  setMapFiltersFormChange
+  setMapFiltersFormChange,
+  resetMapFiltersForm
 } from './map-filters-form.js';
 import { getData } from './api.js';
 import { showAlert } from './alert.js';
 import { showErrorPopup } from './error-popup.js';
 import { showSuccessPopup } from './success-popup.js';
 
-const _ = window._;
 const ADS_DATA_URL = 'https://22.javascript.pages.academy/keksobooking/data';
 const RERENDER_DELAY = 500;
 
-const resetPage = () => {
-  resetAdForm();
-  resetMap();
-};
+let apiData = null;
 
 const onSuccessfullAdFormSubmit = () => {
   showSuccessPopup();
   resetPage();
 };
 
-const renderCards = (adsData) => {
+const renderMarkers = (adsData) => {
   addCardsToMap(createSimilarAdCards(processAdsData(adsData)));
+};
+
+const rerenderMarkers = (adsData) => {
+  removeMarkersFromMap();
+  renderMarkers(adsData);
+};
+
+const resetPage = () => {
+  resetAdForm();
+  resetMap();
+  resetMapFiltersForm();
+  rerenderMarkers(apiData);
 };
 
 initializeMap(() => {
@@ -47,10 +57,10 @@ initializeMap(() => {
   setReadonlyAdAddress();
   getData({
     onSuccess: (adsData) => {
-      renderCards(adsData);
-      setMapFiltersFormChange(_.debounce(() => {
-        removeMarkersFromMap();
-        renderCards(adsData);
+      apiData = adsData;
+      renderMarkers(adsData);
+      setMapFiltersFormChange(debounce(() => {
+        rerenderMarkers(adsData);
       }, RERENDER_DELAY));
     },
     onFailure: showAlert,

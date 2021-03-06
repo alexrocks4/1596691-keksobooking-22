@@ -1,9 +1,11 @@
+import L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
 import { TOKIYO_GEO_POSITON } from './util.js';
 
 const ZOOM_LEVEL = 9;
 let map = null;
 let markers = [];
-const L = window.L;
+
 const mainPinIcon = L.icon({
   iconUrl: 'img/main-pin.svg',
   iconSize: [52, 52],

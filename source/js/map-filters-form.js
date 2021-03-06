@@ -103,10 +103,15 @@ const setMapFiltersFormChange = (cb) => {
   mapFiltersForm.addEventListener('change', cb);
 }
 
+const resetMapFiltersForm = () => {
+  mapFiltersForm.reset();
+};
+
 deactivateMapFiltersForm();
 
 export {
   activateMapFiltersForm,
   processAdsData,
-  setMapFiltersFormChange
+  setMapFiltersFormChange,
+  resetMapFiltersForm
 };
