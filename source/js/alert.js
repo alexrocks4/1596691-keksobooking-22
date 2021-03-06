@@ -1,3 +1,5 @@
+const SHOW_TIMEOUT = 5000;
+
 const createAlert = () => {
   const element = document.createElement('p');
   element.setAttribute('role', 'alert');
@@ -21,7 +23,7 @@ const showAlert = (message) => {
   setTimeout(() => {
     alert.style.display = 'none';
     alert.textContent = '';
-  }, 5000);
+  }, SHOW_TIMEOUT);
 };
 
 const alert = createAlert();

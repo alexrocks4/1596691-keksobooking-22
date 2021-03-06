@@ -47,7 +47,7 @@ const createAdPhotosContent = (urls) => {
 
 
 const createSimilarAdCards = (adsData) => {
-  const ads = adsData
+  return adsData
     .slice(0, MAX_ADS_COUNT)
     .map(({author, offer, location}) => {
       const ad = cardTemplate.cloneNode(true);
@@ -102,8 +102,6 @@ const createSimilarAdCards = (adsData) => {
 
       return { ad, location };
     });
-
-  return ads
 };
 
 export { createSimilarAdCards };

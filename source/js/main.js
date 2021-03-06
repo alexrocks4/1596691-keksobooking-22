@@ -31,7 +31,7 @@ const RERENDER_DELAY = 500;
 
 let apiData = null;
 
-const onSuccessfullAdFormSubmit = () => {
+const onSuccessfulAdFormSubmit = () => {
   showSuccessPopup();
   resetPage();
 };
@@ -68,7 +68,7 @@ initializeMap(() => {
   })
     .then(() => activateMapFiltersForm());
 });
-setAdFormSubmitListener(onSuccessfullAdFormSubmit, showErrorPopup);
+setAdFormSubmitListener(onSuccessfulAdFormSubmit, showErrorPopup);
 setAdFormResetButtonListener(() => {
   resetPage();
 });
