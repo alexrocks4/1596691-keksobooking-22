@@ -1,4 +1,4 @@
-import { onInputChange, resetImageFileInput } from './image-file-input.js';
+import { onImageFileInputChange, resetImageFileInput } from './image-file-input.js';
 
 const AVATAR_DEFAULT_IMAGE = 'img/muffin-grey.svg';
 
@@ -11,6 +11,6 @@ const resetAvatar = () => {
   resetImageFileInput(fileInput);
 };
 
-fileInput.addEventListener('change', onInputChange.bind(null, {image: previewImage}));
+fileInput.addEventListener('change', onImageFileInputChange.bind(null, {image: previewImage}));
 
 export { resetAvatar };
